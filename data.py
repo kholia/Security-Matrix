@@ -29,7 +29,7 @@ for more information.
     {"name": "updates", "short": "Signed updates",
       "depth": 1,
       "desc": """Each stable RPM package that is published by Fedora Project is
-signed with a GPG signature. By default, yum and the graphical update
+signed with a GPG signature. By default, [[dnf|DNF]], [[yum|YUM]] and the graphical update
 tools will verify these signatures and refuse to install any packages that
 are not signed or have bad signatures. You should always verify the
 signature of a package before you install it. These signatures ensure that
@@ -373,11 +373,11 @@ for more information.
 
     {"name": "seccomp", "short":"PR_SET_SECCOMP",
       "depth": 1,
-      "desc": """SECCOMP(SECure COMPuting) which is meant to condine it to small subsystem of system
+      "desc": """SECCOMP(SECure COMPuting) which is meant to confine it to small subsystem of system
 calls, is available since Linux 2.6.23. PR_SET_SECCOMP set the secure computing 
 mode for the the calling thread this limits the system calls for using this in 
 code #include<linux/seccomp.h> and #include<sys/prctl.h>. The  systemd init daemon
-supports the seccomp filter mecahnism in 3.5 kernel. The result is that process can
+supports the seccomp filter mechanism in 3.5 kernel. The result is that process can
 be easily configured to be run in a sandboxed environment.
 
 <pre>
@@ -823,7 +823,7 @@ good thing).  """
       "desc": """A long-standing class of security issues is the symlink-based
 [http://en.wikipedia.org/wiki/Time-of-check-to-time-of-use ToCToU]
 race, most commonly seen in world-writable directories like ''/tmp/''. The
-common method of exploitation of
+common method of exploitation of 
 [http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=tmp+symlink this flaw]
 is crossing privilege boundaries when following a given symlink (i.e. a ''root''
 user follows a symlink belonging to another user).
@@ -863,6 +863,10 @@ attach to other running processes (e.g. SSH sessions, GPG agent,
 etc) to extract additional credentials and continue to immediately expand the scope
 of their attack without resorting to user-assisted phishing or trojans.
 It is provided by YAMA , can be enabled by CONFIG_SECURITY_YAMA in the kernel.
+
+Independent of this configuration, processes that know they store secrets in
+memory may already use <code>prctl(PR_SET_DUMPABLE,0);</code> to prevent ptrace ''and other''
+memory-snooping attacks.
 """ },
 
     {"name": "kernel-hardening", "short":"Kernel Hardening",
