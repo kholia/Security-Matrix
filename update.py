@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 
+# This script is useful for updating a page (article) on a local instance of
+# MediaWiki
+
 import sys
 
 # Initialize Site object
 import mwclient
-site = mwclient.Site(host='localhost', path="/wiki/")
-#site.login("XXX", "XXX")
+# site = mwclient.Site(host='localhost', port=443, path="/wiki/")
+site = mwclient.Site(('http', 'localhost'), path="/wiki/")
+# site.login("XXX", "XXX")
 
 # Edit page
 page = site.Pages['Features']

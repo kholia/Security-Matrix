@@ -21,8 +21,8 @@ for network/firewall zones to define the trust level of network. The former
 firewall model with system-config-firewall/lokkit was static and every
 change required a complete firewall restart. The firewall daemon on the other
 hand manages the firewall dynamically and applies changes without
-restarting the whole firewall. See [https://fedoraproject.org/wiki/FirewallD FirewallD]
-and [https://fedoraproject.org/wiki/SystemConfig/firewall system-config-firewall]
+restarting the whole firewall. See [[FirewallD|FirewallD]]
+and [[SystemConfig/firewall|system-config-firewall]]
 for more information.
 """ },
 
@@ -45,7 +45,7 @@ for more information.
 
     {"name": "selinux", "short":"SELinux",
       "depth": 1,
-      "desc": """[[SELinux]] is an inode-based MAC. See [https://fedoraproject.org/wiki/SELinux this page]
+      "desc": """[[SELinux]] is an inode-based MAC. See [[SELinux|this page]]
 and [http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Security-Enhanced_Linux/index.html this page]
 for more information.
 """ },
@@ -53,7 +53,7 @@ for more information.
     {"name": "selinux-targeted", "short": "SELinux targeted policy",
       "depth": 1,
       "desc": """SELinux enabled with targeted policy by default.
-See [http://fedoraproject.org/wiki/SELinux/Policies discussion of policies page]
+See [[SELinux/Policies|discussion of policies page]]
 and [http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Security-Enhanced_Linux/index.html this page]
 for more information.
 """ },
@@ -234,7 +234,7 @@ Unclassified -> Confidential -> Secret -> Top Secret.If user has clearance to ac
 then user will be allowed otherwise user will be denied access. It is a system wide policy which states that
 who is allowed to access, an individual user cannot alter the access. MAC model is mostly used in environment
 where confidentiality is important like in Government organizations like military, an example of widely used
-of MAC is SELinux.Security-Enhanced Linux (SELinux) employs MAC rules to facilitate fine-grained security. 
+of MAC is SELinux.Security-Enhanced Linux (SELinux) employs MAC rules to facilitate fine-grained security.
 
 see [http://docs.fedoraproject.org/en-US/Fedora/13/html/SELinux_FAQ/index.html#id4228000 MAC]
 """ },
@@ -258,7 +258,7 @@ root                 unconfined_u         s0-s0:c0.c1023       *
 system_u             system_u             s0-s0:c0.c1023       *
 </pre>
 All the linux users are mapped to __default__ which maps to unconfined_u user. SELinux users that are available are
-guest_u, xguest_u, user_u, staff_u. 
+guest_u, xguest_u, user_u, staff_u.
 
 <pre>
 # ls /etc/selinux/targeted/contexts/users
@@ -374,8 +374,8 @@ for more information.
     {"name": "seccomp", "short":"PR_SET_SECCOMP",
       "depth": 1,
       "desc": """SECCOMP(SECure COMPuting) which is meant to confine it to small subsystem of system
-calls, is available since Linux 2.6.23. PR_SET_SECCOMP set the secure computing 
-mode for the the calling thread this limits the system calls for using this in 
+calls, is available since Linux 2.6.23. PR_SET_SECCOMP set the secure computing
+mode for the the calling thread this limits the system calls for using this in
 code #include<linux/seccomp.h> and #include<sys/prctl.h>. The  systemd init daemon
 supports the seccomp filter mechanism in 3.5 kernel. The result is that process can
 be easily configured to be run in a sandboxed environment.
@@ -385,7 +385,7 @@ be easily configured to be run in a sandboxed environment.
  #include<linux/seccomp.h>
  int main() {
 
-  /* int prctl(int option, unsigned long arg2, unsigned long arg3, 
+  /* int prctl(int option, unsigned long arg2, unsigned long arg3,
    * unsigned long arg4, unsigned long arg5);
    * option is PR_SET_SECCOMP, rest args are set according to option passed into
    * prctl function.
@@ -395,7 +395,7 @@ be easily configured to be run in a sandboxed environment.
    _exit(0);
 }
 </pre>
-See [http://lwn.net/Articles/507067/ this article] and [http://lwn.net/Articles/332974/ SECCOMP] 
+See [http://lwn.net/Articles/507067/ this article] and [http://lwn.net/Articles/332974/ SECCOMP]
 for more information.
 """ },
 
@@ -403,7 +403,7 @@ for more information.
       "depth": 1,
       "desc": """
 A boolean variable to allow SELinux to turn off all processes ability to ptrace other process.
-See [https://fedoraproject.org/wiki/Features/SELinuxDenyPtrace this page]
+See [[Features/SELinuxDenyPtrace|this page]]
 and [http://lwn.net/Articles/491440/ this] for more information.
 """ },
 
@@ -447,13 +447,13 @@ world writable folders add an extra layer to protect from further intrusion into
 instance of /tmp or /var/tmp directory is created for each user. This feature is implemented using ''pam_namespace.so''.
 To enable this feature :
 
-uncomment the respective lines in /etc/security/namespace.conf 
+uncomment the respective lines in /etc/security/namespace.conf
 <pre>#/tmp     /tmp-inst/            level      root,adm
 #/var/tmp /var/tmp/tmp-inst/    level      root,adm
 # Remove the line below if required to polyinstantiate HOME directory of the user
 #$HOME    $HOME/$USER.inst/     level</pre>
 
-add 
+add
 <pre> session    required     pam_namespace.so </pre>
 to /etc/pam.d/login. File /etc/security/namespace.conf specifies which directories will be polyinstantiated. It also specifies
 how they will be polyinstantiated , what will the names of the directories which will be polyinstantiated and also for users where
@@ -548,7 +548,7 @@ is in effect:
 * Partial Emulation (via segment limits):
 **  [    0.000000] Using x86 segment limits to approximate NX protection
 
-For more information, see [https://fedoraproject.org/wiki/Security_Features?rd=Security/Features#Exec-Shield Security Features] page.
+For more information, see [[Security_Features?rd=Security/Features#Exec-Shield|Security Features]] page.
 
 """ },
 
@@ -560,7 +560,7 @@ against "return-to-text" and generally frustrates memory corruption
 attacks. This requires centralized changes to the compiler options when
 building the entire archive. PIE has a large (5-10%) performance penalty
 on architectures with small numbers of general registers (e.g. x86), so it
-should only be used for a [https://fedoraproject.org/wiki/Hardened_Packages select number of security-critical packages].
+should only be used for a [[Hardened_Packages|select number of security-critical packages]].
 PIE on x86_64 does not have the same penalties, and will eventually be made the
 default, but more testing is required. See
 [http://www.akkadia.org/drepper/nonselsec.pdf this paper] and this
@@ -613,7 +613,7 @@ that protects against stack overflows, and reduces the chances of
 arbitrary code execution via controlling return address destinations.
 Enabled at compile-time. The routines used for stack checking are actually
 part of glibc, but gcc is patched to enable linking against those routines
-by default. See [https://fedoraproject.org/wiki/Security_Features?rd=Security/Features#Stack_Smash_Protection.2C_Buffer_Overflow_Detection.2C_and_Variable_Reordering this page]
+by default. See [[Security_Features?rd=Security/Features#Stack_Smash_Protection.2C_Buffer_Overflow_Detection.2C_and_Variable_Reordering|this page]]
 for more information.
 """ },
 
@@ -637,7 +637,7 @@ available.
 #include<stdio.h>
 
 void* __get_eip() {
-  
+
 /* http://gcc.gnu.org/onlinedocs/gcc/Return-Address.html
  * This function returns the return address of the currentfunction,or of
  * one of its callers. The level argument is number of frames to scan up
@@ -645,11 +645,11 @@ void* __get_eip() {
  * function, a value of 1 yields the return address of the caller of the
  * current function, and so forth. When inlining the expected behavior is
  * that the function returns the address of the function that is returned
- * to. To work around this behavior use the noinline function attribute. 
+ * to. To work around this behavior use the noinline function attribute.
  */
 
   return __builtin_return_address(0)-0x5;
- 
+
 };
 
 int main(int argc, char **argv) {
@@ -823,7 +823,7 @@ good thing).  """
       "desc": """A long-standing class of security issues is the symlink-based
 [http://en.wikipedia.org/wiki/Time-of-check-to-time-of-use ToCToU]
 race, most commonly seen in world-writable directories like ''/tmp/''. The
-common method of exploitation of 
+common method of exploitation of
 [http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=tmp+symlink this flaw]
 is crossing privilege boundaries when following a given symlink (i.e. a ''root''
 user follows a symlink belonging to another user).
@@ -1018,25 +1018,25 @@ article for more details.
     {"name": "tamperproof", "short": "Tamper Resistant Logs",
       "depth": 1,
       "desc": """
-When system get attacked attackers might tamper logs on the system being attacked, this can 
+When system get attacked attackers might tamper logs on the system being attacked, this can
 be prevented by using FSS ( Forward Secure Sealing ) which is implemented in systemd journal.
 Binary logs maintained by systemd are sealed at certain time intervals. Sealing is an cryptographic
 operation on the logs so that any tempering on the logs can be detected, though an attacker can
-completely remove entire logs but this will get noticed by administrator too. FSS is based on 
-"Forward Secure Pseudo Random Generators" (FSPRG) 
+completely remove entire logs but this will get noticed by administrator too. FSS is based on
+"Forward Secure Pseudo Random Generators" (FSPRG)
 
 <pre>
 # journalctl --setup-keys
 </pre>
 
-there are two keys generated with this 
+there are two keys generated with this
 
 1. Sealing key : It is stored on the system and after certain time intervals new sealing key is generated
-with the use of FSPRG and its a non-reversible process old key is deleted after this. 
+with the use of FSPRG and its a non-reversible process old key is deleted after this.
 
 2. Verification Key : Verification key should be stored at safe place, could be phone device or any place
 else which can be trusted. This key can be used to generate sealing key at any point of given time. Attacker
-can only access current sealing key ,so changing the log files using current sealing key would result in 
+can only access current sealing key ,so changing the log files using current sealing key would result in
 verification failure as it wont verify by the sealing key generated from Verification key.
 
 FSS will seal logs after every 15 min by default, which can be changed by using "--interval=60s" to seal logs
@@ -1090,22 +1090,22 @@ See [https://securityblog.redhat.com/2012/10/31/array-allocation-in-cxx/ Array a
 more information.
 
 """},
-    
+
   {"name": "format-security", "short": "Built with Format Security",
       "depth": 1,
       "desc": """
-Enable "-Werror=format-security" compilation flag for all packages in Fedora. Once this flag is enabled, 
+Enable "-Werror=format-security" compilation flag for all packages in Fedora. Once this flag is enabled,
 GCC will refuse to compile code that could be vulnerable to a string format security flaw.
-see [http://fedoraproject.org/wiki/Changes/FormatSecurity Format Security] for more information
+see [[Changes/FormatSecurity|Format Security]] for more information
 """},
 
 {"name": "crypto-policy", "short": "Crypto Policy",
       "depth": 1,
       "desc": """
-Unify the crypto policies used by different applications and libraries. That is allow setting a consistent 
-security level for crypto on all applications in a Fedora system. The implementation approach will be to 
+Unify the crypto policies used by different applications and libraries. That is allow setting a consistent
+security level for crypto on all applications in a Fedora system. The implementation approach will be to
 initially modify SSL libraries to respect the policy and gradually adding more libraries and applications.
-see [http://fedoraproject.org/wiki/Changes/CryptoPolicy Crypto Policy] for more information
+see [[Changes/CryptoPolicy|Crypto Policy]] for more information
 """},
 
 {"name": "stack-protector-strong", "short": "Built with Stack Protector Strong",

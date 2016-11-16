@@ -822,7 +822,7 @@ add_status('blacklist-rare-net', 'Fedora 23', 'Y', AVAILABLE)
 add_status('blacklist-rare-net', 'Fedora 24', 'Y', AVAILABLE)
 add_status('blacklist-rare-net', 'Rawhide', 'Y', AVAILABLE)
 
-#Format Security
+# Format Security
 add_status('format-security', 'RHEL 3', '--', UNIMPLEMENTED)
 add_status('format-security', 'RHEL 4', '--', UNIMPLEMENTED)
 add_status('format-security', 'RHEL 5', '--', UNIMPLEMENTED)
@@ -836,7 +836,7 @@ add_status('format-security', 'Fedora 23', 'Y', DEFAULT)
 add_status('format-security', 'Fedora 24', 'Y', DEFAULT)
 add_status('format-security', 'Rawhide', 'Y', DEFAULT)
 
-#crypto-policy
+# crypto-policy
 add_status('crypto-policy', 'RHEL 3', '--', UNIMPLEMENTED)
 add_status('crypto-policy', 'RHEL 4', '--', UNIMPLEMENTED)
 add_status('crypto-policy', 'RHEL 5', '--', UNIMPLEMENTED)
@@ -850,8 +850,7 @@ add_status('crypto-policy', 'Fedora 23', 'Y', DEFAULT)
 add_status('crypto-policy', 'Fedora 24', 'Y', DEFAULT)
 add_status('crypto-policy', 'Rawhide', 'Y', DEFAULT)
 
-
-#Stack Protector Strong
+# Stack Protector Strong
 add_status('stack-protector-strong', 'RHEL 3', '--', UNIMPLEMENTED)
 add_status('stack-protector-strong', 'RHEL 4', '--', UNIMPLEMENTED)
 add_status('stack-protector-strong', 'RHEL 5', '--', UNIMPLEMENTED)
