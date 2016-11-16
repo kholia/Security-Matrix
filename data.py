@@ -460,15 +460,15 @@ how they will be polyinstantiated , what will the names of the directories which
 Polyinstantiation would not be performed.
 
 create the directories and set selinux context and bool value to polyinstantiate
-<pre>~]# mkdir /tmp-inst /var/tmp-inst
-~]# chmod 000 /tmp-inst
-~]# chmod 000 /var/tmp-inst
-~]# chcon -R -t tmp_t /tmp-inst
-~]# chcon -R -t tmp_t /var/tmp-inst
-~]# setsebool polyinstantiation_enabled 1</pre>
+<pre># mkdir /tmp-inst /var/tmp-inst
+# chmod 000 /tmp-inst
+# chmod 000 /var/tmp-inst
+# chcon -R -t tmp_t /tmp-inst
+# chcon -R -t tmp_t /var/tmp-inst
+# setsebool polyinstantiation_enabled 1</pre>
 
-* ~$ man 8 pam_namespace
-* ~$ man 5 namespace.conf
+* $ man 8 pam_namespace
+* $ man 5 namespace.conf
 
 As per reference https://www.ibm.com/developerworks/library/l-polyinstantiation/
 
@@ -566,6 +566,9 @@ default, but more testing is required. See
 [http://www.akkadia.org/drepper/nonselsec.pdf this paper] and this
 [https://fedorahosted.org/fesco/ticket/1113 FESCo ticket] for more
 information.
+
+In Fedora 23 and later, all packages are built with PIE and Full RELRO. See
+[[Changes/Harden_All_Packages|this page]] for details.
 """ },
 
     {"name": "pointer-obfuscation", "short":"Pointer Obfuscation",
@@ -625,70 +628,19 @@ loader by randomizing the location of memory allocations (stack, heap,
 shared libraries, etc). This makes memory addresses harder to predict when
 an attacker is attempting a memory-corruption exploit. ASLR is controlled
 system-wide by the value of ''/proc/sys/kernel/randomize_va_space''.
-* 0 - No randomization, everything would get loaded at same address
-* 1 - Partial randomization, shared libraries , stack, mmap(), VDSO and heap are randomized
-* 2 - Full Randomization, in addition to Partial Randomization it randomizes Memory managed through brk().
+* 0 - Turn ASLR off.
+* 1 - Make the addresses of mmap(2) allocations, the stack, loaded shared libraries and the VDSO page randomized.
+* 2 - Also support heap randomization in additon.
 
-ASLR on 32 bit systems is less effective as compared to 64 bit systems. It depends upon the amount of entropy
-available.
-
-<pre>
-#include<stdlib.h>
-#include<stdio.h>
-
-void* __get_eip() {
-
-/* http://gcc.gnu.org/onlinedocs/gcc/Return-Address.html
- * This function returns the return address of the currentfunction,or of
- * one of its callers. The level argument is number of frames to scan up
- * the call stack. A value of 0 yields the return address of the current
- * function, a value of 1 yields the return address of the caller of the
- * current function, and so forth. When inlining the expected behavior is
- * that the function returns the address of the function that is returned
- * to. To work around this behavior use the noinline function attribute.
- */
-
-  return __builtin_return_address(0)-0x5;
-
-};
-
-int main(int argc, char **argv) {
-  printf("EBP located at: %p\n",__get_eip());
-  return 0;
-}
-</pre>
-
-<pre>
-~]$ cat /proc/sys/kernel/randomize_va_space
-2
-
-~]$ gcc get_eip.c -o get_eip
-
-~]$ ldd ./get_eip
-        linux-vdso.so.1 =>  (0x00007fff9a330000)
-        libc.so.6 => /lib64/libc.so.6 (0x0000003e9da00000)
-        /lib64/ld-linux-x86-64.so.2 (0x0000003e9d600000)
-~]$ ldd ./get_eip
-        linux-vdso.so.1 =>  (0x00007fffe77b1000)
-        libc.so.6 => /lib64/libc.so.6 (0x0000003e9da00000)
-        /lib64/ld-linux-x86-64.so.2 (0x0000003e9d600000)
-
-~]$ ./get_eip
-EBP located at: 0x400552
-
-~]$ ./get_eip
-EBP located at: 0x400552
-</pre>
-
-As from the test it can be seen that even if FULL Randomization is enabled, .text section remains static,
-to  make ASLR effective all segments must be randomized, leaving some segment non randomized neutralizes
-protection provided by the ASLR, attacker can use this non randomized area to identify gadgets and can
-build exploit. So even if ASLR is forced not all the segments are randomized for all executable. Code
-segement and Text segment dont get randomized until compiled with PIE (Position Independent Executable).
+Even when randomize_va_space is set to 2, the text segment of binaries is
+loaded at a static address. To make ASLR effective all segments must be
+randomized. Leaving the text segment loading address non-randomized reduces the
+protection provided by the ASLR since the attackers can use ret2text attacks.
+The loading address of the text segement in a binary can be randomized by
+building the binary as PIE (Position Independent Executable).
 
 See [http://www.redhat.com/magazine/009jul05/features/execshield/#preventing-abuse this article] and
-[http://lwn.net/Articles/190139/ this article] for more information. ASLR is now enabled for all packages
-by default in Rawhide.
+[http://lwn.net/Articles/190139/ this article] for more information.
 """ },
 
     {"name": "stack-aslr", "short":"Stack ASLR",
@@ -779,19 +731,22 @@ cause a jmp into the GOT and find the location of the called function. On the fi
 be no entry in GOT, so PLT will hand over the request to the rtld for resolving the function's
 absolute location, after this GOT will be updated for future references.
 
-Few Constraints about PLT and GOT
+Few constraints about PLT and GOT,
 
-1. PLT will always contain code that is called by program directly,so it will be allocated at a
+1. PLT will always contain code that is called by program directly, so it will be allocated at a
 known offset from the .text segment.
 
-2. GOT contains data used by different parts of the program directly,so it will be at a static
+2. GOT contains data used by different parts of the program directly, so it will be at a static
 address in the memory.
 
-3. As GOT is "lazy binded",so it needs to be writable
+3. As GOT is "lazy binded", so it needs to be writable
 
-In case of a bss or data overflow bug both partial and full RELRO can protect the ELF internal data sections from being overwritten.
-With full RELRO a working mitigation technique to successfully prevent the modification of GOT entries is available.Only one reason
-why full RELRO is not widely used is that the startup of processes is slowed down as the linker has to perform all relocations at startup time.
+In case of a bss or data overflow bug both partial and full RELRO can protect
+the ELF internal data sections from being overwritten. With full RELRO a
+working mitigation technique to successfully prevent the modification of GOT
+entries is available. Only one reason why full RELRO is not widely used is that
+the startup of processes is slowed down as the linker has to perform all
+relocations at startup time.
 
 In short, RELRO hardens ELF programs against loader memory area overwrites by
 having the loader mark any areas of the relocation table as read-only for
@@ -1023,7 +978,7 @@ be prevented by using FSS ( Forward Secure Sealing ) which is implemented in sys
 Binary logs maintained by systemd are sealed at certain time intervals. Sealing is an cryptographic
 operation on the logs so that any tempering on the logs can be detected, though an attacker can
 completely remove entire logs but this will get noticed by administrator too. FSS is based on
-"Forward Secure Pseudo Random Generators" (FSPRG)
+"Forward Secure Pseudo Random Generators" (FSPRG).
 
 <pre>
 # journalctl --setup-keys
@@ -1036,7 +991,7 @@ with the use of FSPRG and its a non-reversible process old key is deleted after 
 
 2. Verification Key : Verification key should be stored at safe place, could be phone device or any place
 else which can be trusted. This key can be used to generate sealing key at any point of given time. Attacker
-can only access current sealing key ,so changing the log files using current sealing key would result in
+can only access current sealing key, so changing the log files using current sealing key would result in
 verification failure as it wont verify by the sealing key generated from Verification key.
 
 FSS will seal logs after every 15 min by default, which can be changed by using "--interval=60s" to seal logs
