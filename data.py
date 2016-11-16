@@ -948,7 +948,7 @@ article for more details.
       "depth": 1,
       "desc": """
 When system get attacked attackers might tamper logs on the system being attacked, this can
-be prevented by using FSS ( Forward Secure Sealing ) which is implemented in systemd journal.
+be prevented by using FSS (Forward Secure Sealing) which is implemented in systemd journal.
 Binary logs maintained by systemd are sealed at certain time intervals. Sealing is an cryptographic
 operation on the logs so that any tempering on the logs can be detected, though an attacker can
 completely remove entire logs but this will get noticed by administrator too. FSS is based on
@@ -958,26 +958,27 @@ completely remove entire logs but this will get noticed by administrator too. FS
 # journalctl --setup-keys
 </pre>
 
-there are two keys generated with this
+There are two keys generated with this,
 
-1. Sealing key : It is stored on the system and after certain time intervals new sealing key is generated
-with the use of FSPRG and its a non-reversible process old key is deleted after this.
+1. Sealing key: It is stored on the system and after certain time intervals new sealing key is generated
+with the use of FSPRG and it is a non-reversible process old key is deleted after this.
 
-2. Verification Key : Verification key should be stored at safe place, could be phone device or any place
+2. Verification key: Verification key should be stored at safe place, could be phone device or any place
 else which can be trusted. This key can be used to generate sealing key at any point of given time. Attacker
 can only access current sealing key, so changing the log files using current sealing key would result in
-verification failure as it wont verify by the sealing key generated from Verification key.
+verification failure as it won't verify by the sealing key generated from Verification key.
 
-FSS will seal logs after every 15 min by default, which can be changed by using "--interval=60s" to seal logs
-after every minute. Default time 15min  is too much of time for attacker to work, so it should be changed accordingly
-by system administrators to harden such tasks for attackers.
+FSS will seal logs after every 15 min by default, which can be changed by using
+"--interval=60s" to seal logs after every minute. Default time of 15 minutes is
+too much of time for attacker to work, so it should be changed accordingly by
+system administrators to harden such tasks for attackers.
 
 <pre>
 # journalctl --setup-keys --interval=60s
 </pre>
 
-Deleting of Old Sealing keys is handled by two file attributes FS_SECRM_FL and FS_NOCOW_FL, which may or may not be
-supported by filesystem in use.
+Deleting of old Sealing keys is handled by two file attributes FS_SECRM_FL and
+FS_NOCOW_FL, which may or may not be supported by filesystem in use.
 
 See [http://danwalsh.livejournal.com/58647.html Forward Secure Sealing (FSS) article] for
 more information.
@@ -1034,13 +1035,13 @@ see [[Changes/FormatSecurity|Format Security]] for more information
 Unify the crypto policies used by different applications and libraries. That is allow setting a consistent
 security level for crypto on all applications in a Fedora system. The implementation approach will be to
 initially modify SSL libraries to respect the policy and gradually adding more libraries and applications.
-see [[Changes/CryptoPolicy|Crypto Policy]] for more information
+See [[Changes/CryptoPolicy|Crypto Policy]] for more information.
 """},
 
 {"name": "stack-protector-strong", "short": "Built with Stack Protector Strong",
       "depth": 1,
       "desc": """
-see [http://lwn.net/Articles/584225/ Stack Protector Strong] for more information
+See [http://lwn.net/Articles/584225/ "Strong" stack protection for GCC] article for more information.
 """},
     {"name": "notes", "short": "Additional Documentation",
      "depth": -1, "skip": True,
