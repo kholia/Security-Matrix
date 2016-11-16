@@ -589,7 +589,7 @@ provides corrupted-list/unlink/double-free/overflow protections to the
 glibc heap memory manager (first introduced in glibc 2.3.4). This stops
 the ability to perform arbitrary code execution via heap memory overflows
 that try to corrupt the control structures of the malloc heap memory
-areas.This protection has evolved over time, adding more and more protections as
+areas. This protection has evolved over time, adding more and more protections as
 additional [http://www.phrack.com/issues.html?issue=66&id=10#article corner-cases were researched].
 As it currently stands, glibc 2.10 and later appears to successfully resist
 even these hard-to-hit conditions. See [http://www.redhat.com/magazine/009jul05/features/execshield/#overflows this page]
@@ -692,7 +692,7 @@ use "vdso=2" on the kernel boot command line to gain COMPAT_VDSO again. See
       "comment" : "Support for ELF Data Hardening",
       "desc": """RELRO stands for RELocation Read-Only, it is a mitigation technique to harden
 data sections of an ELF/process. It is used to move commonly exploited structures
-in ELF binary to a read-only location.It Hardens ELF programs against loader memory
+in ELF binary to a read-only location. It Hardens ELF programs against loader memory
 area overwrites by having the loader mark any areas of the relocation table as read-only
 for any symbols resolved at load-time ("read-only relocations"). This reduces the area of
 possible GOT-overwrite-style memory corruption attacks, specially the GOT is made read-only
@@ -713,45 +713,19 @@ Full RELRO
 * Supports all the features of partial RELRO
 * In addition , GOT is also remapped  as read-only
 
-Only Full RELRO can protect from exploiting technique of overwriting GOT entry to get
-control over program execution flow.
-
-So the question is what are GOT and PLT?
-
-GOT (Global Offset Table) redirects position independent address calculations to an absolute
-location and is located in .got section of an ELF executable or shared object. It has the final
-location of a function calls symbol, used with dynamically linked code. By default GOT is created
-dynamically while program is running. The first time function is called GOT contains pointer back
-to PLT (Procedure Linkage Table), where linker is called to find actual location of the function.
-The location found is written to GOT, Second time whenever the function is called GOT already
-knows location of the function known as lazy binding.
-
-PLT (Procedure Linker Table) works with GOT to reference and relocate functions. PLT reference will
-cause a jmp into the GOT and find the location of the called function. On the first call there wont
-be no entry in GOT, so PLT will hand over the request to the rtld for resolving the function's
-absolute location, after this GOT will be updated for future references.
-
-Few constraints about PLT and GOT,
-
-1. PLT will always contain code that is called by program directly, so it will be allocated at a
-known offset from the .text segment.
-
-2. GOT contains data used by different parts of the program directly, so it will be at a static
-address in the memory.
-
-3. As GOT is "lazy binded", so it needs to be writable
-
 In case of a bss or data overflow bug both partial and full RELRO can protect
 the ELF internal data sections from being overwritten. With full RELRO a
 working mitigation technique to successfully prevent the modification of GOT
-entries is available. Only one reason why full RELRO is not widely used is that
-the startup of processes is slowed down as the linker has to perform all
-relocations at startup time.
+entries is available. Full RELRO has been enabled for all packages in Fedora 23
+and later.
 
 In short, RELRO hardens ELF programs against loader memory area overwrites by
 having the loader mark any areas of the relocation table as read-only for
 any symbols resolved at load-time ("read-only relocations"). This reduces
-the area of possible GOT-overwrite-style memory corruption attacks."""
+the area of possible GOT-overwrite-style memory corruption attacks.
+
+This information has been borrowed from [http://tk-blog.blogspot.in/2009/02/relro-not-so-well-known-memory.html this article].
+"""
     },
 
     {"name": "bindnow", "short":"Built with BIND_NOW",
