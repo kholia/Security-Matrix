@@ -932,16 +932,11 @@ to kernel interfaces when potentially running untrusted software.
       "desc": """
 "Secure Boot" describes a UEFI feature by which malware is prevented from
 inserting itself into the boot process before the operating system loads.
-Secure Boot is an optional feature which can be enabled and disabled on will
-of user.
 
-For more indepth information about Secure boot see
-[http://fedoraproject.org/wiki/Features/SecureBoot]
-
-[http://docs.fedoraproject.org/en-US/Fedora/18/html/UEFI_Secure_Boot_Guide/chap-UEFI_Secure_Boot_Guide-What_is_Secure_Boot.html chap-UEFI_Secure_Boot_Guide-What_is_Secure_Boot]
-
-[http://www.uefi.org/sites/default/files/resources/UEFI_Secure_Boot_in_Modern_Computer_Security_Solutions_2013.pdf UEFI_Secure_Boot_in_Modern_Computer_Security_Solutions_2013.pdf]
-article for more details.
+For more in-depth information about Secure Boot see [[Features/SecureBoot|SecureBoot]],
+[http://docs.fedoraproject.org/en-US/Fedora/18/html/UEFI_Secure_Boot_Guide/chap-UEFI_Secure_Boot_Guide-What_is_Secure_Boot.html this] and
+[http://www.uefi.org/sites/default/files/resources/UEFI_Secure_Boot_in_Modern_Computer_Security_Solutions_2013.pdf this]
+articles.
 """ },
 
     {"name": "tamperproof", "short": "Tamper Resistant Logs",
