@@ -133,9 +133,9 @@ add_status('pie', 'Fedora 19', 'package list', DEFAULT)
 add_status('pie', 'Fedora 20', 'package list', DEFAULT)
 add_status('pie', 'Fedora 21', 'package list', DEFAULT)
 add_status('pie', 'Fedora 22', 'package list', DEFAULT)
-add_status('pie', 'Fedora 23', 'package list', DEFAULT)
-add_status('pie', 'Fedora 24', 'package list', DEFAULT)
-add_status('pie', 'Rawhide', 'package list', DEFAULT)
+add_status('pie', 'Fedora 23', 'Y', DEFAULT)
+add_status('pie', 'Fedora 24', 'Y', DEFAULT)
+add_status('pie', 'Rawhide', 'Y', DEFAULT)
 
 # stack ASLR
 add_status('stack-aslr', 'RHEL 3', 'Y (since 9/2004)', DEFAULT)
@@ -333,7 +333,7 @@ add_status('ecryptfs', 'Fedora 23', 'Optional Package', AVAILABLE)
 add_status('ecryptfs', 'Fedora 24', 'Optional Package', AVAILABLE)
 add_status('ecryptfs', 'Rawhide', 'Optional Package', AVAILABLE)
 
-#fscaps
+# fscaps
 add_status('fscaps', 'RHEL 3', '--', UNIMPLEMENTED)
 add_status('fscaps', 'RHEL 4', 'kernel', AVAILABLE)
 add_status('fscaps', 'RHEL 5', 'kernel', AVAILABLE)
@@ -455,9 +455,9 @@ add_status('relro', 'Fedora 19', 'gcc patch', DEFAULT)
 add_status('relro', 'Fedora 20', 'gcc patch', DEFAULT)
 add_status('relro', 'Fedora 21', 'gcc patch', DEFAULT)
 add_status('relro', 'Fedora 22', 'gcc patch', DEFAULT)
-add_status('relro', 'Fedora 23', 'gcc patch', DEFAULT)
-add_status('relro', 'Fedora 24', 'gcc patch', DEFAULT)
-add_status('relro', 'Rawhide', 'gcc patch', DEFAULT)
+add_status('relro', 'Fedora 23', 'Y', DEFAULT)
+add_status('relro', 'Fedora 24', 'Y', DEFAULT)
+add_status('relro', 'Rawhide', 'Y', DEFAULT)
 
 # proc-maps
 add_status('proc-maps', 'RHEL 3', '--', UNIMPLEMENTED)
@@ -571,7 +571,7 @@ add_status('fortify-source', 'Fedora 23', 'Y', DEFAULT)
 add_status('fortify-source', 'Fedora 24', 'Y', DEFAULT)
 add_status('fortify-source', 'Rawhide', 'Y', DEFAULT)
 
-# bindnow
+# bindnow (BIND_NOW)
 add_status('bindnow', 'RHEL 3', 'N', UNIMPLEMENTED)
 add_status('bindnow', 'RHEL 4', '?', AVAILABLE)
 add_status('bindnow', 'RHEL 5', 'package list', DEFAULT)
@@ -581,9 +581,9 @@ add_status('bindnow', 'Fedora 19', 'package list', DEFAULT)
 add_status('bindnow', 'Fedora 20', 'package list', DEFAULT)
 add_status('bindnow', 'Fedora 21', 'package list', DEFAULT)
 add_status('bindnow', 'Fedora 22', 'package list', DEFAULT)
-add_status('bindnow', 'Fedora 23', 'package list', DEFAULT)
-add_status('bindnow', 'Fedora 24', 'package list', DEFAULT)
-add_status('bindnow', 'Rawhide', 'package list', DEFAULT)
+add_status('bindnow', 'Fedora 23', 'Y', DEFAULT)
+add_status('bindnow', 'Fedora 24', 'Y', DEFAULT)
+add_status('bindnow', 'Rawhide', 'Y', DEFAULT)
 
 # stack-protector
 add_status('stack-protector', 'RHEL 3', 'N', UNIMPLEMENTED)
