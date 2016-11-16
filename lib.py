@@ -16,8 +16,9 @@ features = dict()
 # releases = ["RHEL 3", "RHEL 4", "RHEL 5", "RHEL 6", "RHEL 7", \
 releases = [
     "RHEL 3", "RHEL 4", "RHEL 5", "RHEL 6", "RHEL 7",
-    "Fedora 19", "Fedora 20", "Fedora 21","Fedora 22",
-    "Fedora 23","Fedora 24", "Rawhide"]
+    "Fedora 19", "Fedora 24", "Rawhide"]
+    # "Fedora 19", "Fedora 20", "Fedora 21", "Fedora 22",
+    # "Fedora 23", "Fedora 24", "Rawhide"]
 
 release_names = {
     "RHEL 3": "RHEL 3",
