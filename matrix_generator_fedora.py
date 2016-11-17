@@ -62,7 +62,7 @@ for details in feature_list:
 target.write("|}")
 
 # start descriptions
-target.write('\n== Features ==\n\n')
+# target.write('\n== Features ==\n\n')
 
 # configure TOC's placement
 target.write("""\n<div style="float:right;">__TOC__</div>\n""")

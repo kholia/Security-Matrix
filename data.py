@@ -58,14 +58,12 @@ and [http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Security-
 for more information.
 """ },
 
-
     {"name": "selinux_EMP", "short":"SELinux Executable Memory Protection",
       "depth": 1,
       "comment" : "execmem",
       "desc": """SELinux restricts certain memory protection operation if the appropriate boolean values enable these checks.
 See [http://www.akkadia.org/drepper/selinux-mem.html this page] for more information.
 """ },
-
 
 
     {"name": "hashing", "short": "Password hashing",
@@ -91,137 +89,18 @@ to brute-force. See the crypt(3) manpage for additional details.
       "depth": 1,
       "desc": """The need for setuid applications can be reduced via the
 application of [http://www.olafdietsche.de/linux/capability/ filesystem capabilities]
-using the xattrs available to most modern filesystems. This
-reduces the possible misuse of vulnerable setuid applications. The kernel
-provides the support and the user-space tools are available in the
-standard repositories.
-
-Capabilities are defined in /usr/include/linux/capability.h
-
-Linux Capability Version 1
-"_LINUX_CAPABILITY_U32S_1" defined as 1 indicates kernel has 32 or less capabilities
-
-Linux Capability Version 2
-constant "_LINUX_CAPABILITY_U32S_2" defined as 2 indicated kernel has more than 32 capabilities,
-
-Linux Capability Version 3
-
-"_LINUX_CAPABILITY_U32S_2" is deprecated by "_LINUX_CAPABILITY_U32S_3"
-
-32 bit integer is in /proc/sys/kernel/cap_last_cap which defines the current capability sets
-Every linux process has sets of bitmaps
-
-<pre>
-  typedef struct __user_cap_data_struct {
-        __u32 effective;
-        __u32 permitted;
-        __u32 inheritable;
-  } *cap_user_data_t;
-</pre>
-
-each capability is implemented as a bit in each of these bitmaps which is either set or unset.
-
-1. effective (E)
-Effective capability set indicates which capabilities are effective. When some privileged operation
-is done, operating system checks for the bit in effective set of the processes rather than effective uid.
-
-2. permitted (P)
-Indicates which capabilities process can use. Process might have capabilities set in permitted set
-but not in the effective set, that would mean that particular capability is disabled for the process
-Process can set capability in effective set only if it is available in permitted set.
-
-This combinations of effective and permitted bits allow to enable , disable and drop privileges
-
-3. inheritable (I)
-Inheritable capability set indicates which capabilities are inheritable by the process which is going
-to be executed by the current process.
-
-If P1 has X capabilities , then the process P1' which is ran or forked by P1 for example using exec(),
-how many capabilities out of X can be inherited by P1' is decided by inheritable capabilities set.
-
-The need for setuid applications can be reduced via the
-application of [http://www.olafdietsche.de/linux/capability/ filesystem capabilities]
-using the xattrs available to most modern filesystems. This
-reduces the possible misuse of vulnerable setuid applications. The kernel
-provides the support and the user-space tools are available in the
-standard repositories.
-
-Programmes have been vulnerable to set-UID, there is no need for having root
-privileges every time for a process to run, it is logical to provide to minimum
-set of privileges to programme that can enable the programme to run
-effectively. With the normal set-UID approach programmes would run more than
-the privileges required, increasing the risk of Privilege Escalation. Enabling
-Capabilities to programme has been started since kernel 2.6.24 known as file
-capability implemented in fs/exec.c in Kernel itself.
-
-Common capabilities are implemented in security/commoncap.c
-
-Implementation in Red Hat Enterprise Linux
-
-{| class="wikitable"
-|   RELEASE   ||   KERNEL     || CAPABILITY
-|-
-| [[RHEL 2]]  || 2.4.9-e.X    ||     N
-|-
-| [[RHEL 3]]  || 2.4.21-X     ||     N
-|-
-| [[RHEL 4]]  || 2.6.9-X      ||     Y
-|-
-| [[RHEL 5]]  || 2.6.18-X     ||     Y
-|-
-| [[RHEL 6]]  || 2.6.32-X     ||     Y
-|}
-
-==== Modifying Filesystem Capabilities ====
-
-There is no specific system call provided by the linux to modify filesystem capabilities.
-But as its implemented as inode getxattr() , fsetxattr system calls can be used.
-
-Here "$" means normal user and "#" means root user. Let's take 'ping' as working example
-to show how capabilities work.
-
-  $ mkdir CapabilityTest
-  $ cd CapabilityTest
-  $ cp `which ping` .
-
-  $ ./ping -q -c 1 127.0.0.1
-  ping: icmp open socket: Operation not permitted
-
-  # ./ping -q -c 1 127.0.0.1
-  PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
-  --- 127.0.0.1 ping statistics ---
-  1 packets transmitted, 1 received, 0% packet loss, time 0ms
-  rtt min/avg/max/mdev = 0.213/0.213/0.213/0.000 ms
-
-  # setcap cap_net_raw=ep ./ping
-  # getcap ./ping
-  ./ping = cap_net_raw+ep
-  $ ./ping -q -c 1 127.0.0.1
-  PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
-  --- 127.0.0.1 ping statistics ---
-  1 packets transmitted, 1 received, 0% packet loss, time 0ms
-  rtt min/avg/max/mdev = 0.170/0.170/0.170/0.000 ms
-
-from administrators perspective effective bit has to be disabled , so logical way of doing this will  be
-
-  # setcap cap_net_raw=p ./ping
-  # getcap ./ping
-  ./ping = cap_net_raw+p
-
-  $ ./ping -q -c 1 127.0.0.1
-  PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
-  --- 127.0.0.1 ping statistics ---
-  1 packets transmitted, 1 received, 0% packet loss, time 0ms
-  rtt min/avg/max/mdev = 0.170/0.170/0.170/0.000 ms
-
-from that it can be concluded that, ping requires more privileges then a normal user for specially
-crafted network packets, so while running with 'root' user it works as 'root' has all effective
-capabilities. In the Linux Kernel there is a check which sees if application is capable, which means
-to run it should have effective capability for CAP_NET_RAW.
-
-Using set-UID root makes 'ping' over privileged, if buffer overflow is detected
-then attacker could do local privilege escalation giving back shell.
+using the xattrs available to most modern filesystems. This reduces the
+possible misuse of vulnerable setuid applications. The kernel provides the
+support and the user-space tools are available in the libcap package.
 """ },
+
+    {"name": "seccomp", "short":"PR_SET_SECCOMP",
+      "depth": 1,
+      "desc": """Setting SECCOMP(SECure COMPuting) for a process is meant to confine it to a small subsystem of system calls, used for specialized processing-only programs.
+See [http://lwn.net/Articles/507067/ this article] and [http://lwn.net/Articles/332974/ SECCOMP article]
+for more information.
+""" },
+
 
     {"name": "mac", "short":"Mandatory Access Control (MAC)",
       "depth": 0,
@@ -287,76 +166,14 @@ As listed http://docs.fedoraproject.org/en-US/Fedora/13/html/Security-Enhanced_L
 
 Users are defined in /etc/selinux/<target or mls>/contexts/users.
 
-See [http://docs.fedoraproject.org/en-US/Fedora/13/html/Security-Enhanced_Linux/sect-Security-Enhanced_Linux-Targeted_Policy-Confined_and_Unconfined_Users.html Confined and Unconfined Users]
+See [http://docs.fedoraproject.org/en-US/Fedora/13/html/Security-Enhanced_Linux/sect-Security-Enhanced_Linux-Targeted_Policy-Confined_and_Unconfined_Users.html Confined and Unconfined Users article]
 for more information.
 """ },
 
     {"name": "XACE", "short":"SELinux XACE",
       "depth": 1,
       "desc": """
-Support for SELinux X Access Control Extension (XACE).
-XACE (X Access Control Extension) provides a wrapper to do security checks at
-places where untrusted clients should be restricted. XACE provides control over
-X server objects including colormaps, windows, pixmaps, cursors, fonts which are
-assigned unique ID numbers stored. ID numbers can store client ID numbers so
-that resources can be allocated to the clients. clients access resources by the
-their ID numbers when making protocol requests. Developer can place XACE hooks
-in the code at the places where clients should be restricted. XACE hooks when
-present in the code triggers different types of hooks, for e.g while
-authenticating XACE_AUTH_AVAIL hook can be placed there, if code present in the
-application tries to access any device like system bell, cdrom etc.
-XACE_DEVICE_ACCESS hook can be used similarly there are more hooks present in
-XACE, to use #include<Xext/xace.h> is the header to be included which includes
-everything with constants and function declarations, if only structure
-definitions are needed use #include<Xext/xacestr.h>
-
-List of Hook Identifiers:
-
- XACE_CORE_DISPATCH
- XACE_EXT_DISPATCH
- XACE_RESOURCE_ACCESS
- XACE_DEVICE_ACCESS
- XACE_PROPERTY_ACCESS
- XACE_SEND_ACCESS
- XACE_RECEIVE_ACCESS
- XACE_CLIENT_ACCESS
- XACE_EXT_ACCESS
- XACE_SERVER_ACCESS
- XACE_SELECTION_ACCESS
- XACE_SCREEN_ACCESS
- XACE_SCREENSAVER_ACCESS
- XACE_AUTH_AVAIL
- XACE_KEY_AVAIL
- XACE_AUDIT_BEGIN
- XACE_AUDIT_END
-
-with each identifier there is a callback function attached
-
-For complete information about XACE and security hooks provided by it : http://www.x.org/releases/X11R7.5/doc/security/XACE-Spec.html
-
-XACE security hooks can be used like for e.g in case of DEVICE ACCESS:
-
-
-<pre>
- #include<Xext/xace.h>
- #include<dix-config.h>
- static int check_something(DeviceIntPtr dev, ClientPtr client, ....<some_other_args>) {
-
-	int res;
-
-	/* DixManageAccess : Global device configuration is being performed.
-         * on ChangeKeyboardMapping, XiChangeDeviceControl, XkbSetControls
-	 * http://www.x.org/releases/X11R7.5/doc/security/XACE-Spec.html#device_access_hook
-	 */
-
-        res = XaceHook(XACE_DEVICE_ACCESS, client, dev, DixManageAccess);
-	if (res != Success) {
-		client->errorValue = dev->id;
-		return res;
-	}
- }
-</pre>
-
+SELinux X Access Control Extension (XACE) aims at extending SELinux to X.org system, to provide flexible fine-grained MAC to the desktop.
 """ },
 
     {"name": "SELinuxSandbox", "short": "SELinux sandbox",
@@ -369,37 +186,7 @@ for more information.
 """ },
 
 
-
-
-    {"name": "seccomp", "short":"PR_SET_SECCOMP",
-      "depth": 1,
-      "desc": """SECCOMP(SECure COMPuting) which is meant to confine it to small subsystem of system
-calls, is available since Linux 2.6.23. PR_SET_SECCOMP set the secure computing
-mode for the the calling thread this limits the system calls for using this in
-code #include<linux/seccomp.h> and #include<sys/prctl.h>. The  systemd init daemon
-supports the seccomp filter mechanism in 3.5 kernel. The result is that process can
-be easily configured to be run in a sandboxed environment.
-
-<pre>
- #include<sys/prctl.h>
- #include<linux/seccomp.h>
- int main() {
-
-  /* int prctl(int option, unsigned long arg2, unsigned long arg3,
-   * unsigned long arg4, unsigned long arg5);
-   * option is PR_SET_SECCOMP, rest args are set according to option passed into
-   * prctl function.
-   */
-
-   prctl(PR_SET_SECCOMP,SECCOMP_MODE_STRICT,0,0,0);
-   _exit(0);
-}
-</pre>
-See [http://lwn.net/Articles/507067/ this article] and [http://lwn.net/Articles/332974/ SECCOMP]
-for more information.
-""" },
-
-        {"name": "SELinuxDenyPtrace", "short":"SELinux Deny Ptrace",
+    {"name": "SELinuxDenyPtrace", "short":"SELinux Deny Ptrace",
       "depth": 1,
       "desc": """
 A boolean variable to allow SELinux to turn off all processes ability to ptrace other process.
@@ -661,7 +448,7 @@ available in the mainline kernel since 2.6.15.
 """ },
 
     {"name": "exec-aslr", "short":"Exec ASLR",
-      "depth": 1,
+      "depth": 2,
       "desc": """Each execution of a program that has been built with "-fPIE
 -pie" will get loaded into a different memory location. This makes it
 harder to locate in memory where to attack or jump to when performing
@@ -798,6 +585,80 @@ memory may already use <code>prctl(PR_SET_DUMPABLE,0);</code> to prevent ptrace 
 memory-snooping attacks.
 """ },
 
+    {"name": "newoperator", "short": "Overflow checking in new operator",
+      "depth": 1,
+      "desc": """
+GCC performs overflow checking in operator new[]. new operator is used to dynamically
+allocate memory.It throws bad_alloc exception, header to include for using it is <new>
+new() or new[]() without declaration of exception cannot signal memory exhaustion.If
+there is an option to choose between calloc/malloc/new for allocation of the memory,
+new should be used. If new[] is used to allocate memory then delete[] should be used to
+free the allocated memory. Using delete without [] will cause memory leak. Use try-catch
+block with new, as it throws exception and does not return value, though it can be forced
+to return a value by using nothrow.
+
+<pre>
+ using namespace std;
+ /* this should return a value */
+ alpha* pt = new (nothrow) alpha[200];
+
+ or it will throw bad_alloc exception which can be handled by the following code
+ class bad_alloc : public exception {
+ /* error to be thrown to be implemented here */
+ };
+ struct alpha_t{};
+
+ extern const alpha_t alpha;  // indicator for allocation to prevent exceptions
+
+ /* should throw exception */
+ int* ptr = new int[100000];
+
+ /* to avoid exception correct usage would be */
+ int* ptr = new(alpha) int[100000];
+</pre>
+
+See [https://securityblog.redhat.com/2012/10/31/array-allocation-in-cxx/ Array allocation in C++ article] for
+more information.
+
+"""},
+
+    {"name": "format-security", "short": "Built with Format Security",
+      "depth": 1,
+      "desc": """
+Enable "-Werror=format-security" compilation flag for all packages in Fedora. Once this flag is enabled,
+GCC will refuse to compile code that could be vulnerable to a string format security flaw.
+see [[Changes/FormatSecurity|Format Security]] for more information
+""" },
+
+    {"name": "crypto-policy", "short": "Crypto Policy",
+      "depth": 1,
+      "desc": """
+Unify the crypto policies used by different applications and libraries. That is allow setting a consistent
+security level for crypto on all applications in a Fedora system. The implementation approach will be to
+initially modify SSL libraries to respect the policy and gradually adding more libraries and applications.
+See [[Changes/CryptoPolicy|Crypto Policy]] for more information.
+""" },
+
+    {"name": "stack-protector-strong", "short": "Built with Stack Protector Strong",
+      "depth": 1,
+      "desc": """
+See [http://lwn.net/Articles/584225/ "Strong" stack protection for GCC] article for more information.
+""" },
+
+    {"name": "tamperproof", "short": "Tamper Resistant Logs",
+      "depth": 1,
+      "desc": """
+When a system is compromised, attackers might tamper the system logs. This can
+be prevented by using FSS (Forward Secure Sealing) which is implemented in
+the systemd journal. Binary logs maintained by systemd are sealed at certain time
+intervals. Sealing is an cryptographic operation on the logs so that any
+tempering on the logs can be detected, though an attacker can completely remove
+entire logs but this is likely to get noticed by the system administrator.
+
+See [http://danwalsh.livejournal.com/58647.html Forward Secure Sealing (FSS) article] for
+more information.
+""" },
+
     {"name": "kernel-hardening", "short":"Kernel Hardening",
       "depth": 0,
       "section": 1,
@@ -900,8 +761,6 @@ and [http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=3
 for more details.
 """ },
 
-
-
     {"name": "sVirt", "short":"sVirt labelling",
       "depth": 1,
       "comment" : "mjc",
@@ -939,111 +798,15 @@ For more in-depth information about Secure Boot see [[Features/SecureBoot|Secure
 articles.
 """ },
 
-    {"name": "tamperproof", "short": "Tamper Resistant Logs",
-      "depth": 1,
-      "desc": """
-When system get attacked attackers might tamper logs on the system being attacked, this can
-be prevented by using FSS (Forward Secure Sealing) which is implemented in systemd journal.
-Binary logs maintained by systemd are sealed at certain time intervals. Sealing is an cryptographic
-operation on the logs so that any tempering on the logs can be detected, though an attacker can
-completely remove entire logs but this will get noticed by administrator too. FSS is based on
-"Forward Secure Pseudo Random Generators" (FSPRG).
-
-<pre>
-# journalctl --setup-keys
-</pre>
-
-There are two keys generated with this,
-
-1. Sealing key: It is stored on the system and after certain time intervals new sealing key is generated
-with the use of FSPRG and it is a non-reversible process old key is deleted after this.
-
-2. Verification key: Verification key should be stored at safe place, could be phone device or any place
-else which can be trusted. This key can be used to generate sealing key at any point of given time. Attacker
-can only access current sealing key, so changing the log files using current sealing key would result in
-verification failure as it won't verify by the sealing key generated from Verification key.
-
-FSS will seal logs after every 15 min by default, which can be changed by using
-"--interval=60s" to seal logs after every minute. Default time of 15 minutes is
-too much of time for attacker to work, so it should be changed accordingly by
-system administrators to harden such tasks for attackers.
-
-<pre>
-# journalctl --setup-keys --interval=60s
-</pre>
-
-Deleting of old Sealing keys is handled by two file attributes FS_SECRM_FL and
-FS_NOCOW_FL, which may or may not be supported by filesystem in use.
-
-See [http://danwalsh.livejournal.com/58647.html Forward Secure Sealing (FSS) article] for
-more information.
-""" },
-
-    {"name": "newoperator", "short": "Overflow checking in new operator",
-      "depth": 1,
-      "desc": """
-GCC performs overflow checking in operator new[]. new operator is used to dynamically
-allocate memory.It throws bad_alloc exception, header to include for using it is <new>
-new() or new[]() without declaration of exception cannot signal memory exhaustion.If
-there is an option to choose between calloc/malloc/new for allocation of the memory,
-new should be used. If new[] is used to allocate memory then delete[] should be used to
-free the allocated memory. Using delete without [] will cause memory leak. Use try-catch
-block with new, as it throws exception and does not return value, though it can be forced
-to return a value by using nothrow.
-
-<pre>
- using namespace std;
- /* this should return a value */
- alpha* pt = new (nothrow) alpha[200];
-
- or it will throw bad_alloc exception which can be handled by the following code
- class bad_alloc : public exception {
- /* error to be thrown to be implemented here */
- };
- struct alpha_t{};
-
- extern const alpha_t alpha;  // indicator for allocation to prevent exceptions
-
- /* should throw exception */
- int* ptr = new int[100000];
-
- /* to avoid exception correct usage would be */
- int* ptr = new(alpha) int[100000];
-</pre>
-
-See [https://securityblog.redhat.com/2012/10/31/array-allocation-in-cxx/ Array allocation in C++ article] for
-more information.
-
-"""},
-
-  {"name": "format-security", "short": "Built with Format Security",
-      "depth": 1,
-      "desc": """
-Enable "-Werror=format-security" compilation flag for all packages in Fedora. Once this flag is enabled,
-GCC will refuse to compile code that could be vulnerable to a string format security flaw.
-see [[Changes/FormatSecurity|Format Security]] for more information
-"""},
-
-{"name": "crypto-policy", "short": "Crypto Policy",
-      "depth": 1,
-      "desc": """
-Unify the crypto policies used by different applications and libraries. That is allow setting a consistent
-security level for crypto on all applications in a Fedora system. The implementation approach will be to
-initially modify SSL libraries to respect the policy and gradually adding more libraries and applications.
-See [[Changes/CryptoPolicy|Crypto Policy]] for more information.
-"""},
-
-{"name": "stack-protector-strong", "short": "Built with Stack Protector Strong",
-      "depth": 1,
-      "desc": """
-See [http://lwn.net/Articles/584225/ "Strong" stack protection for GCC] article for more information.
-"""},
     {"name": "notes", "short": "Additional Documentation",
      "depth": -1, "skip": True,
      "desc": """
 * Coordination with Ubuntu: https://wiki.ubuntu.com/Security/Features
 * Coordination with Debian: http://wiki.debian.org/Hardening
 * Gentoo's Hardening project: http://www.gentoo.org/proj/en/hardened/hardened-toolchain.xml
-"""},
+""" },
+
+
+
 
 ]
