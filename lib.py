@@ -16,9 +16,12 @@ features = dict()
 # releases = ["RHEL 3", "RHEL 4", "RHEL 5", "RHEL 6", "RHEL 7", \
 releases = [
     "RHEL 3", "RHEL 4", "RHEL 5", "RHEL 6", "RHEL 7",
-    "Fedora 19", "Fedora 24","Fedora 25","Rawhide"]
-    # "Fedora 19", "Fedora 20", "Fedora 21", "Fedora 22",
-    # "Fedora 23", "Fedora 24", "Rawhide"]
+    "Fedora 24", "Fedora 27", "Rawhide"]
+# "Fedora 19", "Fedora 20", "Fedora 21", "Fedora 22",
+# "Fedora 23", "Fedora 24", "Rawhide"]
+
+# Fedora 27 data is same as Fedora 25. Fedora 25 data is same as Fedora 24.
+
 
 release_names = {
     "RHEL 3": "RHEL 3",
@@ -33,6 +36,7 @@ release_names = {
     "Fedora 23": "Fedora 23",
     "Fedora 24": "Fedora 24",
     "Fedora 25": "Fedora 25",
+    "Fedora 27": "Fedora 27",
     "Rawhide": "Rawhide",
 }
 
@@ -49,6 +53,7 @@ release_dates = {
     "Fedora 23": "2015 Nov",
     "Fedora 24": "2016 Jun",
     "Fedora 25": "2016 Oct",
+    "Fedora 27": "2017 Oct",
     "Rawhide": "-",
 }
 
@@ -96,6 +101,7 @@ add_status('firewall', 'Fedora 22', 'firewalld', DEFAULT)
 add_status('firewall', 'Fedora 23', 'firewalld', DEFAULT)
 add_status('firewall', 'Fedora 24', 'firewalld', DEFAULT)
 add_status('firewall', 'Fedora 25', 'firewalld', DEFAULT)
+add_status('firewall', 'Fedora 27', 'firewalld', DEFAULT)
 add_status('firewall', 'Rawhide', 'firewalld', DEFAULT)
 
 # updates
@@ -111,6 +117,7 @@ add_status('updates', 'Fedora 22', 'yum / dnf', DEFAULT)
 add_status('updates', 'Fedora 23', 'yum / dnf', DEFAULT)
 add_status('updates', 'Fedora 24', 'yum / dnf', DEFAULT)
 add_status('updates', 'Fedora 25', 'yum / dnf', DEFAULT)
+add_status('updates', 'Fedora 27', 'yum / dnf', DEFAULT)
 add_status('updates', 'Rawhide', 'yum / dnf', DEFAULT)
 
 # NX stuff
@@ -126,6 +133,7 @@ add_status('nx', 'Fedora 22', 'Y', DEFAULT)
 add_status('nx', 'Fedora 23', 'Y', DEFAULT)
 add_status('nx', 'Fedora 24', 'Y', DEFAULT)
 add_status('nx', 'Fedora 25', 'Y', DEFAULT)
+add_status('nx', 'Fedora 27', 'Y', DEFAULT)
 add_status('nx', 'Rawhide', 'Y', DEFAULT)
 
 # PIE support
@@ -141,6 +149,7 @@ add_status('pie', 'Fedora 22', 'package list', DEFAULT)
 add_status('pie', 'Fedora 23', 'Y', DEFAULT)
 add_status('pie', 'Fedora 24', 'Y', DEFAULT)
 add_status('pie', 'Fedora 25', 'Y', DEFAULT)
+add_status('pie', 'Fedora 27', 'Y', DEFAULT)
 add_status('pie', 'Rawhide', 'Y', DEFAULT)
 
 # stack ASLR
@@ -156,6 +165,7 @@ add_status('stack-aslr', 'Fedora 22', 'kernel', DEFAULT)
 add_status('stack-aslr', 'Fedora 23', 'kernel', DEFAULT)
 add_status('stack-aslr', 'Fedora 24', 'kernel', DEFAULT)
 add_status('stack-aslr', 'Fedora 25', 'kernel', DEFAULT)
+add_status('stack-aslr', 'Fedora 27', 'kernel', DEFAULT)
 add_status('stack-aslr', 'Rawhide', 'kernel', DEFAULT)
 
 # mmap ASLR
@@ -171,6 +181,7 @@ add_status('mmap-aslr', 'Fedora 22', 'kernel', DEFAULT)
 add_status('mmap-aslr', 'Fedora 23', 'kernel', DEFAULT)
 add_status('mmap-aslr', 'Fedora 24', 'kernel', DEFAULT)
 add_status('mmap-aslr', 'Fedora 25', 'kernel', DEFAULT)
+add_status('mmap-aslr', 'Fedora 27', 'kernel', DEFAULT)
 add_status('mmap-aslr', 'Rawhide', 'kernel', DEFAULT)
 
 # exec-aslr
@@ -186,6 +197,7 @@ add_status('exec-aslr', 'Fedora 22', 'Y', DEFAULT)
 add_status('exec-aslr', 'Fedora 23', 'Y', DEFAULT)
 add_status('exec-aslr', 'Fedora 24', 'Y', DEFAULT)
 add_status('exec-aslr', 'Fedora 25', 'Y', DEFAULT)
+add_status('exec-aslr', 'Fedora 27', 'Y', DEFAULT)
 add_status('exec-aslr', 'Rawhide', 'Y', DEFAULT)
 
 # vDSO ASLR
@@ -201,6 +213,7 @@ add_status('vdso-aslr', 'Fedora 22', 'kernel', DEFAULT)
 add_status('vdso-aslr', 'Fedora 23', 'kernel', DEFAULT)
 add_status('vdso-aslr', 'Fedora 24', 'kernel', DEFAULT)
 add_status('vdso-aslr', 'Fedora 25', 'kernel', DEFAULT)
+add_status('vdso-aslr', 'Fedora 27', 'kernel', DEFAULT)
 add_status('vdso-aslr', 'Rawhide', 'kernel', DEFAULT)
 
 # brk-aslr
@@ -216,6 +229,7 @@ add_status('brk-aslr', 'Fedora 22', 'Y', DEFAULT)
 add_status('brk-aslr', 'Fedora 23', 'Y', DEFAULT)
 add_status('brk-aslr', 'Fedora 24', 'Y', DEFAULT)
 add_status('brk-aslr', 'Fedora 25', 'Y', DEFAULT)
+add_status('brk-aslr', 'Fedora 27', 'Y', DEFAULT)
 add_status('brk-aslr', 'Rawhide', 'Y', DEFAULT)
 
 # null-mmap
@@ -231,6 +245,7 @@ add_status('null-mmap', 'Fedora 22', 'Y', DEFAULT)
 add_status('null-mmap', 'Fedora 23', 'Y', DEFAULT)
 add_status('null-mmap', 'Fedora 24', 'Y', DEFAULT)
 add_status('null-mmap', 'Fedora 25', 'Y', DEFAULT)
+add_status('null-mmap', 'Fedora 27', 'Y', DEFAULT)
 add_status('null-mmap', 'Rawhide', 'Y', DEFAULT)
 
 # block-modules
@@ -246,6 +261,7 @@ add_status('block-modules', 'Fedora 22', 'Y', DEFAULT)
 add_status('block-modules', 'Fedora 23', 'Y', DEFAULT)
 add_status('block-modules', 'Fedora 24', 'Y', DEFAULT)
 add_status('block-modules', 'Fedora 25', 'Y', DEFAULT)
+add_status('block-modules', 'Fedora 27', 'Y', DEFAULT)
 add_status('block-modules', 'Rawhide', 'Y', DEFAULT)
 
 # dev-kmem
@@ -261,6 +277,7 @@ add_status('dev-kmem', 'Fedora 22', 'Y', DEFAULT)
 add_status('dev-kmem', 'Fedora 23', 'Y', DEFAULT)
 add_status('dev-kmem', 'Fedora 24', 'Y', DEFAULT)
 add_status('dev-kmem', 'Fedora 25', 'Y', DEFAULT)
+add_status('dev-kmem', 'Fedora 27', 'Y', DEFAULT)
 add_status('dev-kmem', 'Rawhide', 'Y', DEFAULT)
 
 # selinux
@@ -276,6 +293,7 @@ add_status('selinux', 'Fedora 22', 'Y', DEFAULT)
 add_status('selinux', 'Fedora 23', 'Y', DEFAULT)
 add_status('selinux', 'Fedora 24', 'Y', DEFAULT)
 add_status('selinux', 'Fedora 25', 'Y', DEFAULT)
+add_status('selinux', 'Fedora 27', 'Y', DEFAULT)
 add_status('selinux', 'Rawhide', 'Y', DEFAULT)
 
 # kernel-protect-rodata
@@ -291,6 +309,7 @@ add_status('kernel-protect-rodata', 'Fedora 22', 'Y', DEFAULT)
 add_status('kernel-protect-rodata', 'Fedora 23', 'Y', DEFAULT)
 add_status('kernel-protect-rodata', 'Fedora 24', 'Y', DEFAULT)
 add_status('kernel-protect-rodata', 'Fedora 25', 'Y', DEFAULT)
+add_status('kernel-protect-rodata', 'Fedora 27', 'Y', DEFAULT)
 add_status('kernel-protect-rodata', 'Rawhide', 'Y', DEFAULT)
 
 # seccomp-filter
@@ -306,6 +325,7 @@ add_status('seccomp-filter', 'Fedora 22', 'Y', AVAILABLE)
 add_status('seccomp-filter', 'Fedora 23', 'Y', AVAILABLE)
 add_status('seccomp-filter', 'Fedora 24', 'Y', AVAILABLE)
 add_status('seccomp-filter', 'Fedora 25', 'Y', AVAILABLE)
+add_status('seccomp-filter', 'Fedora 27', 'Y', AVAILABLE)
 add_status('seccomp-filter', 'Rawhide', 'Y', AVAILABLE)
 
 # SELinuxModuleLoading
@@ -321,6 +341,7 @@ add_status('SELinuxModuleLoading', 'Fedora 22', 'Y', AVAILABLE)
 add_status('SELinuxModuleLoading', 'Fedora 23', 'Y', AVAILABLE)
 add_status('SELinuxModuleLoading', 'Fedora 24', 'Y', AVAILABLE)
 add_status('SELinuxModuleLoading', 'Fedora 25', 'Y', AVAILABLE)
+add_status('SELinuxModuleLoading', 'Fedora 27', 'Y', AVAILABLE)
 add_status('SELinuxModuleLoading', 'Rawhide', 'Y', AVAILABLE)
 
 # hashing
@@ -336,6 +357,7 @@ add_status('hashing', 'Fedora 22', 'sha512crypt', DEFAULT)
 add_status('hashing', 'Fedora 23', 'sha512crypt', DEFAULT)
 add_status('hashing', 'Fedora 24', 'sha512crypt', DEFAULT)
 add_status('hashing', 'Fedora 25', 'sha512crypt', DEFAULT)
+add_status('hashing', 'Fedora 27', 'sha512crypt', DEFAULT)
 add_status('hashing', 'Rawhide', 'sha512crypt', DEFAULT)
 
 # eCryptfs
@@ -351,6 +373,7 @@ add_status('ecryptfs', 'Fedora 22', 'Optional Package', AVAILABLE)
 add_status('ecryptfs', 'Fedora 23', 'Optional Package', AVAILABLE)
 add_status('ecryptfs', 'Fedora 24', 'Optional Package', AVAILABLE)
 add_status('ecryptfs', 'Fedora 25', 'Optional Package', AVAILABLE)
+add_status('ecryptfs', 'Fedora 27', 'Optional Package', AVAILABLE)
 add_status('ecryptfs', 'Rawhide', 'Optional Package', AVAILABLE)
 
 # fscaps
@@ -366,6 +389,7 @@ add_status('fscaps', 'Fedora 22', 'kernel', AVAILABLE)
 add_status('fscaps', 'Fedora 23', 'kernel', AVAILABLE)
 add_status('fscaps', 'Fedora 24', 'kernel', AVAILABLE)
 add_status('fscaps', 'Fedora 25', 'kernel', AVAILABLE)
+add_status('fscaps', 'Fedora 27', 'kernel', AVAILABLE)
 add_status('fscaps', 'Rawhide', 'kernel', AVAILABLE)
 
 # dev-mem
@@ -381,6 +405,7 @@ add_status('dev-mem', 'Fedora 22', 'kernel', DEFAULT)
 add_status('dev-mem', 'Fedora 23', 'kernel', DEFAULT)
 add_status('dev-mem', 'Fedora 24', 'kernel', DEFAULT)
 add_status('dev-mem', 'Fedora 25', 'kernel', DEFAULT)
+add_status('dev-mem', 'Fedora 27', 'kernel', DEFAULT)
 add_status('dev-mem', 'Rawhide', 'kernel', DEFAULT)
 
 # encrypted-lvm
@@ -396,6 +421,7 @@ add_status('encrypted-lvm', 'Fedora 22', 'Standard Installer', AVAILABLE)
 add_status('encrypted-lvm', 'Fedora 23', 'Standard Installer', AVAILABLE)
 add_status('encrypted-lvm', 'Fedora 24', 'Standard Installer', AVAILABLE)
 add_status('encrypted-lvm', 'Fedora 25', 'Standard Installer', AVAILABLE)
+add_status('encrypted-lvm', 'Fedora 27', 'Standard Installer', AVAILABLE)
 add_status('encrypted-lvm', 'Rawhide', 'Standard Installer', AVAILABLE)
 
 # kernel-stack-protector
@@ -411,6 +437,7 @@ add_status('kernel-stack-protector', 'Fedora 22', 'Y', DEFAULT)
 add_status('kernel-stack-protector', 'Fedora 23', 'Y', DEFAULT)
 add_status('kernel-stack-protector', 'Fedora 24', 'Y', DEFAULT)
 add_status('kernel-stack-protector', 'Fedora 25', 'Y', DEFAULT)
+add_status('kernel-stack-protector', 'Fedora 27', 'Y', DEFAULT)
 add_status('kernel-stack-protector', 'Rawhide', 'Y', DEFAULT)
 
 # sVirt labelling
@@ -426,6 +453,7 @@ add_status('sVirt', 'Fedora 22', 'Y', DEFAULT)
 add_status('sVirt', 'Fedora 23', 'Y', DEFAULT)
 add_status('sVirt', 'Fedora 24', 'Y', DEFAULT)
 add_status('sVirt', 'Fedora 25', 'Y', DEFAULT)
+add_status('sVirt', 'Fedora 27', 'Y', DEFAULT)
 add_status('sVirt', 'Rawhide', 'Y', DEFAULT)
 
 # SELinuxConfineUsers
@@ -441,6 +469,7 @@ add_status('SELinuxConfineUsers', 'Fedora 22', 'Y', DEFAULT)
 add_status('SELinuxConfineUsers', 'Fedora 23', 'Y', DEFAULT)
 add_status('SELinuxConfineUsers', 'Fedora 24', 'Y', DEFAULT)
 add_status('SELinuxConfineUsers', 'Fedora 25', 'Y', DEFAULT)
+add_status('SELinuxConfineUsers', 'Fedora 27', 'Y', DEFAULT)
 add_status('SELinuxConfineUsers', 'Rawhide', 'Y', DEFAULT)
 
 # SELinuxSandbox
@@ -456,6 +485,7 @@ add_status('SELinuxSandbox', 'Fedora 22', 'Y', DEFAULT)
 add_status('SELinuxSandbox', 'Fedora 23', 'Y', DEFAULT)
 add_status('SELinuxSandbox', 'Fedora 24', 'Y', DEFAULT)
 add_status('SELinuxSandbox', 'Fedora 25', 'Y', DEFAULT)
+add_status('SELinuxSandbox', 'Fedora 27', 'Y', DEFAULT)
 add_status('SELinuxSandbox', 'Rawhide', 'Y', DEFAULT)
 
 # XACE
@@ -471,6 +501,7 @@ add_status('XACE', 'Fedora 22', 'Y', AVAILABLE)
 add_status('XACE', 'Fedora 23', 'Y', AVAILABLE)
 add_status('XACE', 'Fedora 24', 'Y', AVAILABLE)
 add_status('XACE', 'Fedora 25', 'Y', AVAILABLE)
+add_status('XACE', 'Fedora 27', 'Y', AVAILABLE)
 add_status('XACE', 'Rawhide', 'Y', AVAILABLE)
 
 # RELRO
@@ -486,6 +517,7 @@ add_status('relro', 'Fedora 22', 'gcc patch', DEFAULT)
 add_status('relro', 'Fedora 23', 'Y', DEFAULT)
 add_status('relro', 'Fedora 24', 'Y', DEFAULT)
 add_status('relro', 'Fedora 25', 'Y', DEFAULT)
+add_status('relro', 'Fedora 27', 'Y', DEFAULT)
 add_status('relro', 'Rawhide', 'Y', DEFAULT)
 
 # proc-maps
@@ -501,6 +533,7 @@ add_status('proc-maps', 'Fedora 22', 'kernel & sysctl', DEFAULT)
 add_status('proc-maps', 'Fedora 23', 'kernel & sysctl', DEFAULT)
 add_status('proc-maps', 'Fedora 24', 'kernel & sysctl', DEFAULT)
 add_status('proc-maps', 'Fedora 25', 'kernel & sysctl', DEFAULT)
+add_status('proc-maps', 'Fedora 27', 'kernel & sysctl', DEFAULT)
 add_status('proc-maps', 'Rawhide', 'kernel & sysctl', DEFAULT)
 
 # dev-mem
@@ -516,6 +549,7 @@ add_status('dev-mem', 'Fedora 22', 'Y', DEFAULT)
 add_status('dev-mem', 'Fedora 23', 'Y', DEFAULT)
 add_status('dev-mem', 'Fedora 24', 'Y', DEFAULT)
 add_status('dev-mem', 'Fedora 25', 'Y', DEFAULT)
+add_status('dev-mem', 'Fedora 27', 'Y', DEFAULT)
 add_status('dev-mem', 'Rawhide', 'Y', DEFAULT)
 
 # seccomp
@@ -531,6 +565,7 @@ add_status('seccomp', 'Fedora 22', 'kernel', AVAILABLE)
 add_status('seccomp', 'Fedora 23', 'kernel', AVAILABLE)
 add_status('seccomp', 'Fedora 24', 'kernel', AVAILABLE)
 add_status('seccomp', 'Fedora 25', 'kernel', AVAILABLE)
+add_status('seccomp', 'Fedora 27', 'kernel', AVAILABLE)
 add_status('seccomp', 'rawhide', 'kernel', AVAILABLE)
 
 # SYN cookies
@@ -546,6 +581,7 @@ add_status('syn-cookies', 'Fedora 22', 'kernel', DEFAULT)
 add_status('syn-cookies', 'Fedora 23', 'kernel', DEFAULT)
 add_status('syn-cookies', 'Fedora 24', 'kernel', DEFAULT)
 add_status('syn-cookies', 'Fedora 25', 'kernel', DEFAULT)
+add_status('syn-cookies', 'Fedora 27', 'kernel', DEFAULT)
 add_status('syn-cookies', 'Rawhide', 'kernel', DEFAULT)
 
 # SELinuxDenyPtrace
@@ -561,6 +597,7 @@ add_status('SELinuxDenyPtrace', 'Fedora 22', 'Y', AVAILABLE)
 add_status('SELinuxDenyPtrace', 'Fedora 23', 'Y', AVAILABLE)
 add_status('SELinuxDenyPtrace', 'Fedora 24', 'Y', AVAILABLE)
 add_status('SELinuxDenyPtrace', 'Fedora 25', 'Y', AVAILABLE)
+add_status('SELinuxDenyPtrace', 'Fedora 27', 'Y', AVAILABLE)
 add_status('SELinuxDenyPtrace', 'rawhide', 'Y', AVAILABLE)
 
 # selinux-targeted
@@ -576,6 +613,7 @@ add_status('selinux-targeted', 'Fedora 22', 'Y', DEFAULT)
 add_status('selinux-targeted', 'Fedora 23', 'Y', DEFAULT)
 add_status('selinux-targeted', 'Fedora 24', 'Y', DEFAULT)
 add_status('selinux-targeted', 'Fedora 25', 'Y', DEFAULT)
+add_status('selinux-targeted', 'Fedora 27', 'Y', DEFAULT)
 add_status('selinux-targeted', 'Rawhide',   'Y', DEFAULT)
 
 # heap-protector
@@ -591,6 +629,7 @@ add_status('heap-protector', 'Fedora 22', 'glibc', DEFAULT)
 add_status('heap-protector', 'Fedora 23', 'glibc', DEFAULT)
 add_status('heap-protector', 'Fedora 24', 'glibc', DEFAULT)
 add_status('heap-protector', 'Fedora 25', 'glibc', DEFAULT)
+add_status('heap-protector', 'Fedora 27', 'glibc', DEFAULT)
 add_status('heap-protector', 'Rawhide', 'glibc', DEFAULT)
 
 # FORTIFY_SOURCE
@@ -606,6 +645,7 @@ add_status('fortify-source', 'Fedora 22', 'Y', DEFAULT)
 add_status('fortify-source', 'Fedora 23', 'Y', DEFAULT)
 add_status('fortify-source', 'Fedora 24', 'Y', DEFAULT)
 add_status('fortify-source', 'Fedora 25', 'Y', DEFAULT)
+add_status('fortify-source', 'Fedora 27', 'Y', DEFAULT)
 add_status('fortify-source', 'Rawhide', 'Y', DEFAULT)
 
 # bindnow (BIND_NOW)
@@ -621,6 +661,7 @@ add_status('bindnow', 'Fedora 22', 'package list', DEFAULT)
 add_status('bindnow', 'Fedora 23', 'Y', DEFAULT)
 add_status('bindnow', 'Fedora 24', 'Y', DEFAULT)
 add_status('bindnow', 'Fedora 25', 'Y', DEFAULT)
+add_status('bindnow', 'Fedora 27', 'Y', DEFAULT)
 add_status('bindnow', 'Rawhide', 'Y', DEFAULT)
 
 # stack-protector
@@ -636,6 +677,7 @@ add_status('stack-protector', 'Fedora 22', 'Y', DEFAULT)
 add_status('stack-protector', 'Fedora 23', 'Y', DEFAULT)
 add_status('stack-protector', 'Fedora 24', 'Y', DEFAULT)
 add_status('stack-protector', 'Fedora 25', 'Y', DEFAULT)
+add_status('stack-protector', 'Fedora 27', 'Y', DEFAULT)
 add_status('stack-protector', 'Rawhide', 'Y', DEFAULT)
 
 # selinux_EMP
@@ -651,6 +693,7 @@ add_status('selinux_EMP', 'Fedora 22', 'Y', DEFAULT)
 add_status('selinux_EMP', 'Fedora 23', 'Y', DEFAULT)
 add_status('selinux_EMP', 'Fedora 24', 'Y', DEFAULT)
 add_status('selinux_EMP', 'Fedora 25', 'Y', DEFAULT)
+add_status('selinux_EMP', 'Fedora 27', 'Y', DEFAULT)
 add_status('selinux_EMP', 'Rawhide', 'Y', DEFAULT)
 
 # pointer-obfuscation
@@ -666,6 +709,7 @@ add_status('pointer-obfuscation', 'Fedora 22', 'glibc', DEFAULT)
 add_status('pointer-obfuscation', 'Fedora 23', 'glibc', DEFAULT)
 add_status('pointer-obfuscation', 'Fedora 24', 'glibc', DEFAULT)
 add_status('pointer-obfuscation', 'Fedora 25', 'glibc', DEFAULT)
+add_status('pointer-obfuscation', 'Fedora 27', 'glibc', DEFAULT)
 add_status('pointer-obfuscation', 'Rawhide', 'glibc', DEFAULT)
 
 # symlink protections
@@ -681,6 +725,7 @@ add_status('symlink', 'Fedora 22', 'Y', AVAILABLE)
 add_status('symlink', 'Fedora 23', 'Y', AVAILABLE)
 add_status('symlink', 'Fedora 24', 'Y', AVAILABLE)
 add_status('symlink', 'Fedora 25', 'Y', AVAILABLE)
+add_status('symlink', 'Fedora 27', 'Y', AVAILABLE)
 add_status('symlink', 'Rawhide', 'Y', AVAILABLE)
 
 # hardlink protections
@@ -696,6 +741,7 @@ add_status('hardlink', 'Fedora 22', 'Y', AVAILABLE)
 add_status('hardlink', 'Fedora 23', 'Y', AVAILABLE)
 add_status('hardlink', 'Fedora 24', 'Y', AVAILABLE)
 add_status('hardlink', 'Fedora 25', 'Y', AVAILABLE)
+add_status('hardlink', 'Fedora 27', 'Y', AVAILABLE)
 add_status('hardlink', 'Rawhide', 'Y', AVAILABLE)
 
 # namespaces protections
@@ -711,6 +757,7 @@ add_status('namespaces', 'Fedora 22', 'N', UNIMPLEMENTED)
 add_status('namespaces', 'Fedora 23', 'N', UNIMPLEMENTED)
 add_status('namespaces', 'Fedora 24', 'N', UNIMPLEMENTED)
 add_status('namespaces', 'Fedora 25', 'N', UNIMPLEMENTED)
+add_status('namespaces', 'Fedora 27', 'N', UNIMPLEMENTED)
 add_status('namespaces', 'Rawhide', 'N', UNIMPLEMENTED)
 
 # systemd_namespace protections
@@ -726,6 +773,7 @@ add_status('systemd_namespace', 'Fedora 22', 'Y', AVAILABLE)
 add_status('systemd_namespace', 'Fedora 23', 'Y', AVAILABLE)
 add_status('systemd_namespace', 'Fedora 24', 'Y', AVAILABLE)
 add_status('systemd_namespace', 'Fedora 25', 'Y', AVAILABLE)
+add_status('systemd_namespace', 'Fedora 27', 'Y', AVAILABLE)
 add_status('systemd_namespace', 'Rawhide', 'Y', AVAILABLE)
 
 # systemd_namespace protections
@@ -741,6 +789,7 @@ add_status('polyinstantiate', 'Fedora 22', 'Y', AVAILABLE)
 add_status('polyinstantiate', 'Fedora 23', 'Y', AVAILABLE)
 add_status('polyinstantiate', 'Fedora 24', 'Y', AVAILABLE)
 add_status('polyinstantiate', 'Fedora 25', 'Y', AVAILABLE)
+add_status('polyinstantiate', 'Fedora 27', 'Y', AVAILABLE)
 add_status('polyinstantiate', 'Rawhide', 'Y', AVAILABLE)
 
 # secure boot
@@ -756,6 +805,7 @@ add_status('secureboot', 'Fedora 22', 'Y', AVAILABLE)
 add_status('secureboot', 'Fedora 23', 'Y', AVAILABLE)
 add_status('secureboot', 'Fedora 24', 'Y', AVAILABLE)
 add_status('secureboot', 'Fedora 25', 'Y', AVAILABLE)
+add_status('secureboot', 'Fedora 27', 'Y', AVAILABLE)
 add_status('secureboot', 'Rawhide', 'Y', AVAILABLE)
 
 # Forward Secure Sealing
@@ -771,6 +821,7 @@ add_status('tamperproof', 'Fedora 22', 'Y', AVAILABLE)
 add_status('tamperproof', 'Fedora 23', 'Y', AVAILABLE)
 add_status('tamperproof', 'Fedora 24', 'Y', AVAILABLE)
 add_status('tamperproof', 'Fedora 25', 'Y', AVAILABLE)
+add_status('tamperproof', 'Fedora 27', 'Y', AVAILABLE)
 add_status('tamperproof', 'Rawhide', 'Y', AVAILABLE)
 
 # Overflow checking in operator new[]
@@ -786,6 +837,7 @@ add_status('newoperator', 'Fedora 22', 'Y', AVAILABLE)
 add_status('newoperator', 'Fedora 23', 'Y', AVAILABLE)
 add_status('newoperator', 'Fedora 24', 'Y', AVAILABLE)
 add_status('newoperator', 'Fedora 25', 'Y', AVAILABLE)
+add_status('newoperator', 'Fedora 27', 'Y', AVAILABLE)
 add_status('newoperator', 'Rawhide', 'Y', AVAILABLE)
 
 # symlink
@@ -801,6 +853,7 @@ add_status('symlink', 'Fedora 22', 'kernel', AVAILABLE)
 add_status('symlink', 'Fedora 23', 'kernel', AVAILABLE)
 add_status('symlink', 'Fedora 24', 'kernel', AVAILABLE)
 add_status('symlink', 'Fedora 25', 'kernel', AVAILABLE)
+add_status('symlink', 'Fedora 27', 'kernel', AVAILABLE)
 add_status('symlink', 'Rawhide', 'kernel', AVAILABLE)
 
 # hardlink
@@ -816,6 +869,7 @@ add_status('hardlink', 'Fedora 22', 'kernel', AVAILABLE)
 add_status('hardlink', 'Fedora 23', 'kernel', AVAILABLE)
 add_status('hardlink', 'Fedora 24', 'kernel', AVAILABLE)
 add_status('hardlink', 'Fedora 25', 'kernel', AVAILABLE)
+add_status('hardlink', 'Fedora 27', 'kernel', AVAILABLE)
 add_status('hardlink', 'Rawhide', 'kernel', AVAILABLE)
 
 # ptrace
@@ -831,6 +885,7 @@ add_status('ptrace', 'Fedora 22', 'N', UNIMPLEMENTED)
 add_status('ptrace', 'Fedora 23', 'N', UNIMPLEMENTED)
 add_status('ptrace', 'Fedora 24', 'N', UNIMPLEMENTED)
 add_status('ptrace', 'Fedora 25', 'N', UNIMPLEMENTED)
+add_status('ptrace', 'Fedora 27', 'N', UNIMPLEMENTED)
 add_status('ptrace', 'rawhide', 'N', UNIMPLEMENTED)
 
 # kptr-restrict
@@ -846,6 +901,7 @@ add_status('kptr-restrict', 'Fedora 22', 'kernel', DEFAULT)
 add_status('kptr-restrict', 'Fedora 23', 'kernel', DEFAULT)
 add_status('kptr-restrict', 'Fedora 24', 'kernel', DEFAULT)
 add_status('kptr-restrict', 'Fedora 25', 'kernel', DEFAULT)
+add_status('kptr-restrict', 'Fedora 27', 'kernel', DEFAULT)
 add_status('kptr-restrict', 'Rawhide', 'kernel', DEFAULT)
 
 # module-ronx
@@ -861,6 +917,7 @@ add_status('module-ronx', 'Fedora 22', 'kernel', DEFAULT)
 add_status('module-ronx', 'Fedora 23', 'kernel', DEFAULT)
 add_status('module-ronx', 'Fedora 24', 'kernel', DEFAULT)
 add_status('module-ronx', 'Fedora 25', 'kernel', DEFAULT)
+add_status('module-ronx', 'Fedora 27', 'kernel', DEFAULT)
 add_status('module-ronx', 'Rawhide', 'kernel', DEFAULT)
 
 # blacklist rate protocols
@@ -876,6 +933,7 @@ add_status('blacklist-rare-net', 'Fedora 22', 'Y', AVAILABLE)
 add_status('blacklist-rare-net', 'Fedora 23', 'Y', AVAILABLE)
 add_status('blacklist-rare-net', 'Fedora 24', 'Y', AVAILABLE)
 add_status('blacklist-rare-net', 'Fedora 25', 'Y', AVAILABLE)
+add_status('blacklist-rare-net', 'Fedora 27', 'Y', AVAILABLE)
 add_status('blacklist-rare-net', 'Rawhide', 'Y', AVAILABLE)
 
 # Format Security
@@ -891,6 +949,7 @@ add_status('format-security', 'Fedora 22', 'Y', DEFAULT)
 add_status('format-security', 'Fedora 23', 'Y', DEFAULT)
 add_status('format-security', 'Fedora 24', 'Y', DEFAULT)
 add_status('format-security', 'Fedora 25', 'Y', DEFAULT)
+add_status('format-security', 'Fedora 27', 'Y', DEFAULT)
 add_status('format-security', 'Rawhide', 'Y', DEFAULT)
 
 # crypto-policy
@@ -906,6 +965,7 @@ add_status('crypto-policy', 'Fedora 22', 'Y', DEFAULT)
 add_status('crypto-policy', 'Fedora 23', 'Y', DEFAULT)
 add_status('crypto-policy', 'Fedora 24', 'Y', DEFAULT)
 add_status('crypto-policy', 'Fedora 25', 'Y', DEFAULT)
+add_status('crypto-policy', 'Fedora 27', 'Y', DEFAULT)
 add_status('crypto-policy', 'Rawhide', 'Y', DEFAULT)
 
 # Stack Protector Strong
@@ -921,4 +981,5 @@ add_status('stack-protector-strong', 'Fedora 22', 'Y', DEFAULT)
 add_status('stack-protector-strong', 'Fedora 23', 'Y', DEFAULT)
 add_status('stack-protector-strong', 'Fedora 24', 'Y', DEFAULT)
 add_status('stack-protector-strong', 'Fedora 25', 'Y', DEFAULT)
+add_status('stack-protector-strong', 'Fedora 27', 'Y', DEFAULT)
 add_status('stack-protector-strong', 'Rawhide', 'Y', DEFAULT)
